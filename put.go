@@ -87,7 +87,7 @@ func (p *Put) run(ctx aws.Context) (output *dynamodb.PutItemOutput, err error) {
 		return nil, p.err
 	}
 
-	req := p.input()
+	req := p.Input()
 	retry(ctx, func() error {
 		output, err = p.table.db.client.PutItemWithContext(ctx, req)
 		return err
@@ -98,7 +98,7 @@ func (p *Put) run(ctx aws.Context) (output *dynamodb.PutItemOutput, err error) {
 	return
 }
 
-func (p *Put) input() *dynamodb.PutItemInput {
+func (p *Put) Input() *dynamodb.PutItemInput {
 	input := &dynamodb.PutItemInput{
 		TableName:                 &p.table.name,
 		Item:                      p.item,
