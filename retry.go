@@ -1,6 +1,7 @@
 package dynamo
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -31,6 +32,8 @@ func retry(ctx aws.Context, f func() error) error {
 		if err = f(); err == nil {
 			return nil
 		}
+
+		fmt.Printf("Retrying occured : %+v\n", err)
 
 		if !canRetry(err) {
 			return err
